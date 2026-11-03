@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "moduleResolution": "bundler",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "noEmit": true
+  },
+  "include": [
+    "src/catalog.ts",
+    "src/connections.ts",
+    "src/pipeline.ts",
+    "src/processing/**/*.ts",
+    "src/view.ts",
+    "src/inspector.ts",
+    "src/processor.ts",
+    "tests/**/*.ts"
+  ]
+}

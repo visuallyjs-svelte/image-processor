@@ -1,0 +1,66 @@
+@import '@visuallyjs/browser-ui/css/visuallyjs.css';
+
+* { box-sizing: border-box; }
+body { margin: 0; color: #26323b; font-family: sans-serif; font-size: 14px; }
+button, input, select { font: inherit; }
+button, a { cursor: pointer; }
+.image-processor { display: flex; width: 100%; height: 100vh; min-width: 900px; }
+.palette-panel { flex: 0 0 166px; padding: 16px 12px; border-right: 1px solid #ccd3d8; overflow-y: auto; background: #fafbfc; }
+h1 { font-size: 18px; margin: 0 0 8px; }
+.palette-panel p, .inspector-help, .empty-inspector, .node-properties p { color: #67737e; font-size: 12px; line-height: 1.6; }
+.palette-section h2 { margin: 12px 0 4px; padding: 7px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; background: var(--group-color); }
+.basic { --group-color: #ded4df; }
+.filter { --group-color: #a5c6d0; }
+.transform { --group-color: #eeeb9f; }
+.input { --group-color: #bed9ac; }
+.math { --group-color: #efc5ab; }
+.palette-item { padding: 7px 8px; border-radius: 3px; cursor: grab; }
+.palette-item:hover { background: #eaf0f4; }
+.workspace { flex: 1; position: relative; min-width: 0; }
+#canvas { position: absolute; inset: 0; background: #fff; }
+.image-drop-active { outline: 3px dashed #5699a6; outline-offset: -6px; }
+.vjs-controls { position: absolute; left: 16px; top: 16px; z-index: 10; }
+.vjs-miniview { position: absolute; left: 16px; bottom: 48px; z-index: 10; border: 1px solid #d4dce1; background: #f3f6f8; border-radius: 3px; }
+.canvas-help { position: absolute; bottom: 16px; left: 16px; color: #7a8791; font-size: 11px; pointer-events: none; }
+#status { position: absolute; left: 16px; right: 16px; top: 66px; z-index: 12; color: #a44832; font-size: 12px; pointer-events: none; }
+#status:not(:empty) { background: #fff5ee; padding: 8px 12px; border-radius: 3px; }
+.inspector-panel { flex: 0 0 220px; border-left: 1px solid #ccd3d8; padding: 20px 16px; background: #fafbfc; overflow-y: auto; }
+.inspector-panel h2 { font-size: 15px; margin: 0 0 24px; }
+.node-properties h3 { font-size: 14px; margin: 0 0 20px; }
+.node-properties label { display: flex; flex-direction: column; gap: 7px; margin: 0 0 18px; font-size: 12px; }
+.node-properties input, .node-properties select { width: 100%; min-width: 0; padding: 8px; border: 1px solid #c2cbd1; border-radius: 3px; background: white; color: #26323b; }
+.node-properties input[type="checkbox"] { width: 18px; height: 18px; }
+.node-properties input[type="color"] { height: 38px; padding: 3px; }
+.inspector-help { margin-top: 26px; border-top: 1px solid #e1e6e9; padding-top: 16px; }
+.processor-node { width: 220px; background: white; border: 1px solid #8d989f; border-radius: 3px; box-shadow: 0 2px 4px #26323b12; }
+.processor-node header { display: flex; align-items: center; justify-content: space-between; background: var(--group-color); padding: 9px 10px; min-height: 35px; font-size: 13px; font-weight: 600; cursor: move; border-radius: 2px 2px 0 0; }
+.processor-node header > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.delete-node { border: 0; background: transparent; padding: 0 0 0 8px; color: #5d6670; font-size: 18px; line-height: 16px; }
+.ports { display: flex; justify-content: space-between; padding: 8px 0; min-height: 36px; font-size: 11px; gap: 10px; }
+.port-row { position: relative; min-height: 26px; display: flex; align-items: center; }
+.port-row.input { padding-left: 14px; }
+.port-row.output { padding-right: 14px; justify-content: flex-end; }
+.port { width: 11px; height: 11px; border: 2px solid #fff; border-radius: 50%; background: #ac555a; position: absolute; cursor: crosshair; box-shadow: 0 0 0 1px #ac555a; }
+.port-row.input .port { left: -6px; }
+.port-row.output .port { right: -6px; }
+.port[data-vjs-scope="number"] { background: #678d62; box-shadow: 0 0 0 1px #678d62; }
+.port[data-vjs-scope="string"] { background: #719eaf; box-shadow: 0 0 0 1px #719eaf; }
+.processor-node canvas { display: block; margin: 0 9px; background: repeating-conic-gradient(#f1f3f5 0% 25%, white 0% 50%) 50% / 14px 14px; }
+.processor-node footer { display: flex; justify-content: space-between; align-items: center; padding: 9px; font-size: 10px; gap: 5px; }
+.processor-node footer button, .download-image { border: none; background: transparent; padding: 0; color: #426d7b; text-decoration: none; font-size: 11px; }
+.download-image[aria-disabled="true"] { pointer-events: none; color: #a5adb3; }
+.dimensions { color: #6d7780; }
+.node-error { color: #ac4936; font-size: 11px; line-height: 1.5; white-space: normal; }
+.node-error:not(:empty) { padding: 8px 10px; border-top: 1px solid #edd5cd; }
+.value-preview:not(:empty) { font-size: 11px; color: #586a72; padding: 0 10px 10px; overflow-wrap: anywhere; }
+.has-error { border-color: #b16c52; }
+.vjs-node-selected { outline: 2px solid #4a899c; outline-offset: 3px; }
+.vjs-connector-path { stroke: #6d777e; stroke-width: 1.5px; }
+.vjs-overlay { fill: #6d777e; }
+.delete-edge { background: white; color: #a44842; border: 1px solid #dfd5d2; border-radius: 50%; width: 16px; height: 16px; font-size: 13px; text-align: center; line-height: 13px; cursor: pointer; opacity: .45; }
+.vjs-connector-hover + .delete-edge, .delete-edge:hover { opacity: 1; }
+.vjs-drag-active { outline: 2px solid #91b3bb; outline-offset: 3px; }
+.vjs-drag-hover { outline-color: #d99550; }
+
+/* Framework surface hosts fill the canvas wrapper. */
+#canvas > .vjs-surface, #canvas > vjs-surface { display: block; width: 100%; height: 100%; }

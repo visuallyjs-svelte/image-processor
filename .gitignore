@@ -1,0 +1,14 @@
+node_modules
+dist
+*.local
+package-lock.json
+node_modules/
+dist/
+dist-ssr/
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+*.log
+*.sw?
